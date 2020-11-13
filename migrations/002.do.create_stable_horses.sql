@@ -3,6 +3,7 @@ CREATE TABLE stable_horses (
     name TEXT NOT NULL,
     showname TEXT,
     age INTEGER NOT NULL,
+    stall INTEGER NOT NULL,
     breed TEXT,
     riderId INTEGER REFERENCES stable_riders(id)
 );

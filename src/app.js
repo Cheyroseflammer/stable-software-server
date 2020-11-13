@@ -26,6 +26,7 @@ app.use(helmet());
 
 app.use('/api/riders', ridersRouter);
 app.use('/api/horses', horsesRouter);
+// app.use('/api/*', app);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');

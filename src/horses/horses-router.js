@@ -11,6 +11,7 @@ const serializeHorse = (horse) => ({
   name: xss(horse.name),
   showname: xss(horse.showname),
   age: xss(horse.age),
+  stall: xss(horse.stall),
   riderId: xss(horse.riderId),
 });
 horsesRouter
@@ -24,8 +25,8 @@ horsesRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { name, showname, age, riderId } = req.body;
-    const newHorse = { name, showname, age, riderId };
+    const { name, showname, age, stall, riderId } = req.body;
+    const newHorse = { name, showname, age, stall, riderId };
 
     for (const [key, value] of Object.entries(newHorse))
       if (value == null)
