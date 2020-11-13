@@ -5,13 +5,27 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 
+// Routers
+const ridersRouter = require('./riders/riders-router');
+const horsesRouter = require('./horses/horses-router');
+
 const app = express();
 
 const morganOption = NODE_ENV === 'production' ? 'tiny' : 'common';
 
 app.use(morgan(morganOption));
+app.use(
+  cors({
+    origin: NODE_ENV,
+  })
+);
+
 app.use(helmet());
-app.use(cors());
+
+// Router Uses
+
+app.use('/api/riders', ridersRouter);
+app.use('/api/horses', horsesRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');

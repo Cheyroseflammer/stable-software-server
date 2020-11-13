@@ -3,6 +3,10 @@ const RidersService = {
     return knex.select('*').from('stable_riders');
   },
 
+  getById(knex, id) {
+    return knex.from('stable_riders').select('*').where('id', id).first();
+  },
+
   insertRider(knex, newRider) {
     return knex
       .insert(newRider)
@@ -11,10 +15,6 @@ const RidersService = {
       .then((rows) => {
         return rows[0];
       });
-  },
-
-  getById(knex, id) {
-    return knex.from('stable_riders').select('*').where('id', id).first();
   },
 
   deleteRider(knex, id) {

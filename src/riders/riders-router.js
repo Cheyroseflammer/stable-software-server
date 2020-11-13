@@ -3,7 +3,7 @@ const express = require('express');
 const xss = require('xss');
 const RidersService = require('./riders-service');
 
-const ridersRouter = express.Routers();
+const ridersRouter = express.Router();
 const jsonParser = express.json();
 
 const serializeRider = (rider) => ({
@@ -15,7 +15,7 @@ ridersRouter
   .route('/')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
-    RidersService.getAllFolders(knexInstance)
+    RidersService.getAllRiders(knexInstance)
       .then((riders) => {
         res.json(riders.map(serializeRider));
       })
@@ -43,7 +43,7 @@ ridersRouter
 ridersRouter
   .route('/:riderId')
   .all((req, res, next) => {
-    RidersService.getById(req.app.get('db'), req.params.folderId)
+    RidersService.getById(req.app.get('db'), req.params.riderId)
       .then((rider) => {
         if (!rider) {
           return res.status(404).json({
@@ -59,7 +59,7 @@ ridersRouter
     res.json(serializeRider(res.rider));
   })
   .delete((req, res, next) => {
-    RidersService.deleteRider(req.app.get('db'), req.params.folderId)
+    RidersService.deleteRider(req.app.get('db'), req.params.riderId)
       .then((numRowsAffected) => {
         res.status(204).end();
       })
