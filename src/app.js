@@ -8,6 +8,7 @@ const { NODE_ENV } = require('./config');
 // Routers
 const ridersRouter = require('./riders/riders-router');
 const horsesRouter = require('./horses/horses-router');
+const authRouter = require('./auth/auth-router');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(helmet());
 
 app.use('/api/riders', ridersRouter);
 app.use('/api/horses', horsesRouter);
+app.use('/api/auth', authRouter);
 // app.use('/api/*', app);
 
 app.get('/', (req, res) => {
