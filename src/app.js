@@ -9,23 +9,24 @@ const { NODE_ENV } = require('./config');
 const ridersRouter = require('./riders/riders-router');
 const horsesRouter = require('./horses/horses-router');
 const authRouter = require('./auth/auth-router');
+const usersRouter = require('./users/users-router');
 
 const app = express();
 
 const morganOption = NODE_ENV === 'production' ? 'tiny' : 'common';
+app.use(helmet());
 
 app.use(morgan(morganOption));
 app.use(
   cors({
-    origin: NODE_ENV,
+    // origin: NODE_ENV,
   })
 );
-
-app.use(helmet());
 
 // Router Uses
 
 app.use('/api/riders', ridersRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/horses', horsesRouter);
 app.use('/api/auth', authRouter);
 // app.use('/api/*', app);

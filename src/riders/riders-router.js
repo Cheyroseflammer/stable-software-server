@@ -6,6 +6,7 @@ const RidersService = require('./riders-service');
 const ridersRouter = express.Router();
 const jsonParser = express.json();
 
+// What is this serializeRider function doing?
 const serializeRider = (rider) => ({
   id: rider.id,
   name: xss(rider.name),
@@ -30,11 +31,12 @@ ridersRouter
         return res.status(400).json({
           error: { message: `Missing '${key}' in request body` },
         });
+
     RidersService.insertRider(req.app.get('db'), newRider)
       .then((rider) => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${rider.id}`))
+          .location(path.posix.join(req.originalUrl, `/api/riders/${rider.id}`))
           .json(serializeRider(rider));
       })
       .catch(next);

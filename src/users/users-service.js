@@ -1,19 +1,28 @@
+const express = require('express');
 const xss = require('xss');
 const bcrypt = require('bcryptjs');
 
-const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/;
-
+// to store db transactions:
 const UsersService = {
-  usernameTaken(db, username) {
-    return db('stable_users')
-      .where({ username })
+  serializeUser(user) {
+    return {
+      id: user.id,
+      email: xss(user.email),
+    };
+  },
+  getAllUsers(knex) {
+    return knex.select('*').from('users');
+  },
+  hasUserWithUserName(db, email) {
+    return db('users')
+      .where({ email })
       .first()
       .then((user) => !!user);
   },
   insertUser(db, newUser) {
     return db
       .insert(newUser)
-      .into('stable_users')
+      .into('users')
       .returning('*')
       .then(([user]) => user);
   },
@@ -21,28 +30,21 @@ const UsersService = {
     if (password.length < 8) {
       return 'Password must be longer than 8 characters';
     }
-    if (password.length > 72) {
-      return 'Password must be less than 72 characters';
+    if (password.length > 20) {
+      return 'Password must be less than 20 characters';
     }
     if (password.startsWith(' ') || password.endsWith(' ')) {
       return 'Password must not start or end with empty spaces';
     }
-    if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
-      return 'Password must contain 1 upper case, lower case, number and special character';
-    }
-    return null;
   },
   hashPassword(password) {
     return bcrypt.hash(password, 12);
   },
-  serializeUser(user) {
-    return {
-      id: user.id,
-      fullname: xss(user.full_name),
-      username: xss(user.user_name),
-      nickname: xss(user.nick_name),
-      date_created: new Date(user.date_created),
-    };
+  deleteUser(knex, id) {
+    return knex('users').where({ id }).delete();
+  },
+  getById(knex, id) {
+    return knex.from('users').select('*').where('id', id).first();
   },
 };
 

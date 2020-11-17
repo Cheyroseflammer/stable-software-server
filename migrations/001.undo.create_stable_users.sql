@@ -1,4 +1,4 @@
-ALTER TABLE stable_things
+ALTER TABLE stable_users
   DROP COLUMN IF EXISTS user_id;
 
 DROP TABLE IF EXISTS stable_users CASCADE;
