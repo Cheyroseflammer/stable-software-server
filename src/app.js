@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 
 // Routers
-const ridersRouter = require('./riders/riders-router');
+const ridersRouter = require('./rider/riders-router');
 const horsesRouter = require('./horses/horses-router');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');

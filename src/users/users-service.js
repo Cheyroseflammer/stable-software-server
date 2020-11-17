@@ -1,4 +1,3 @@
-const express = require('express');
 const xss = require('xss');
 const bcrypt = require('bcryptjs');
 
@@ -11,10 +10,10 @@ const UsersService = {
     };
   },
   getAllUsers(knex) {
-    return knex.select('*').from('users');
+    return knex.select('*').from('stable_users');
   },
   hasUserWithUserName(db, email) {
-    return db('users')
+    return db('stable_users')
       .where({ email })
       .first()
       .then((user) => !!user);
@@ -22,7 +21,7 @@ const UsersService = {
   insertUser(db, newUser) {
     return db
       .insert(newUser)
-      .into('users')
+      .into('stable_users')
       .returning('*')
       .then(([user]) => user);
   },
@@ -41,10 +40,10 @@ const UsersService = {
     return bcrypt.hash(password, 12);
   },
   deleteUser(knex, id) {
-    return knex('users').where({ id }).delete();
+    return knex('stable_users').where({ id }).delete();
   },
   getById(knex, id) {
-    return knex.from('users').select('*').where('id', id).first();
+    return knex.from('stable_users').select('*').where('id', id).first();
   },
 };
 
