@@ -1,6 +1,5 @@
-const express = require('express');
 const xss = require('xss');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 // to store db transactions:
 const UsersService = {
