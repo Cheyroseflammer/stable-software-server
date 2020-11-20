@@ -46,7 +46,7 @@ horsesRouter
 
 horsesRouter
   // need explanation of the .all block
-  .route('/:horseId')
+  .route('/:id')
   .all((req, res, next) => {
     HorsesService.getById(req.app.get('db'), req.params.horseId)
       .then((horse) => {
@@ -64,7 +64,7 @@ horsesRouter
     res.json(serializeHorse(res.horse));
   })
   .delete((req, res, next) => {
-    HorsesService.deleteHorse(req.app.get('db'), req.params.HorseId)
+    HorsesService.deleteHorse(req.app.get('db'), req.params.horseId)
       .then((numRowsAffected) => {
         res.status(204).end();
       })

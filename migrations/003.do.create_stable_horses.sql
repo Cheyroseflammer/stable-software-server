@@ -5,5 +5,5 @@ CREATE TABLE stable_horses (
     age INTEGER NOT NULL,
     stall INTEGER NOT NULL,
     breed TEXT,
-    "riderId" INTEGER REFERENCES stable_riders(id)
+    "riderId" INTEGER REFERENCES stable_riders(id) ON DELETE CASCADE NOT NULL
 );

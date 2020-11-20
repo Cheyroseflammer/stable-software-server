@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const xss = require('xss');
 const RidersService = require('./riders-service');
+// const { requireAuth } = require('../middleware/basic-auth');
 
 const ridersRouter = express.Router();
 const jsonParser = express.json();
