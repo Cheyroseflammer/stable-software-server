@@ -1,7 +1,7 @@
-const path = require('path');
-const express = require('express');
-const xss = require('xss');
-const HorsesService = require('./horses-service');
+const path = require("path");
+const express = require("express");
+const xss = require("xss");
+const HorsesService = require("./horses-service");
 
 const horsesRouter = express.Router();
 const jsonParser = express.json();
@@ -12,12 +12,12 @@ const serializeHorse = (horse) => ({
   showname: xss(horse.showname),
   age: xss(horse.age),
   stall: xss(horse.stall),
-  riderId: xss(horse.riderId),
+  riderId: horse.riderId,
 });
 horsesRouter
-  .route('/')
+  .route("/")
   .get((req, res, next) => {
-    const knexInstance = req.app.get('db');
+    const knexInstance = req.app.get("db");
     HorsesService.getAllHorses(knexInstance)
       .then((horses) => {
         res.json(horses.map(serializeHorse));
@@ -34,7 +34,7 @@ horsesRouter
           error: { message: `Missing '${key}' in request body` },
         });
 
-    HorsesService.insertHorse(req.app.get('db'), newHorse)
+    HorsesService.insertHorse(req.app.get("db"), newHorse)
       .then((horse) => {
         res
           .status(201)
@@ -46,9 +46,9 @@ horsesRouter
 
 horsesRouter
   // need explanation of the .all block
-  .route('/:id')
+  .route("/:id")
   .all((req, res, next) => {
-    HorsesService.getById(req.app.get('db'), req.params.horseId)
+    HorsesService.getById(req.app.get("db"), req.params.horseId)
       .then((horse) => {
         if (!horse) {
           return res.status(404).json({
@@ -64,7 +64,7 @@ horsesRouter
     res.json(serializeHorse(res.horse));
   })
   .delete((req, res, next) => {
-    HorsesService.deleteHorse(req.app.get('db'), req.params.horseId)
+    HorsesService.deleteHorse(req.app.get("db"), req.params.horseId)
       .then((numRowsAffected) => {
         res.status(204).end();
       })
