@@ -46,7 +46,7 @@ horsesRouter
 
 horsesRouter
   // need explanation of the .all block
-  .route("/:id")
+  .route("/:horseId")
   .all((req, res, next) => {
     HorsesService.getById(req.app.get("db"), req.params.horseId)
       .then((horse) => {
