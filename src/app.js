@@ -14,14 +14,14 @@ const usersRouter = require("./users/users-router");
 const app = express();
 
 const morganOption = process.env.NODE_ENV === "production" ? "tiny" : "common";
-app.use(helmet());
 
-app.use(morgan(morganOption));
 app.use(
   cors({
     origin: NODE_ENV,
   })
 );
+app.use(helmet());
+app.use(morgan(morganOption));
 
 // Router Uses
 
