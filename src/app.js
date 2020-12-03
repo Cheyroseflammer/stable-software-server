@@ -19,7 +19,7 @@ app.use(helmet());
 app.use(morgan(morganOption));
 app.use(
   cors({
-    // origin: NODE_ENV,
+    origin: NODE_ENV,
   })
 );
 
