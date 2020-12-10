@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
-// const cors = require("cors");
+const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 
@@ -15,16 +15,16 @@ const app = express();
 
 const morganOption = process.env.NODE_ENV === "production" ? "tiny" : "common";
 
-// app.use(cors());
-app.use(helmet());
 app.use(morgan(morganOption));
+app.use(helmet());
+app.use(cors());
 
 // Router Uses
 
 app.use("/api/riders", ridersRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/horses", horsesRouter);
-app.use("/api/auth", authRouter);
+// app.use("/api/auth", authRouter);
 // app.use('/api/*', app);
 
 app.get("/", (req, res) => {
