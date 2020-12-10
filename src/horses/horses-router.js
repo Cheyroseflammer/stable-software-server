@@ -69,6 +69,26 @@ horsesRouter
         res.status(204).end();
       })
       .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { name, showname, age, stall, riderId } = req.body;
+    const horseToUpdate = { name, showname, age, stall, riderId };
+    const numberOfValues = Object.values(horseToUpdate).filter(Boolean).length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must content either 'requested field`,
+        },
+      });
+    HorsesService.updateHorse(
+      req.app.get("db"),
+      req.params.horseId,
+      horseToUpdate
+    )
+      .then((numRowsAffected) => {
+        res.status(204).end();
+      })
+      .catch(next);
   });
 
 module.exports = horsesRouter;
