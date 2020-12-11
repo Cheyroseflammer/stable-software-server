@@ -8,12 +8,12 @@ const { NODE_ENV } = require("./config");
 // Routers
 const ridersRouter = require("./riders/riders-router");
 const horsesRouter = require("./horses/horses-router");
-const authRouter = require("./auth/auth-router");
+// const authRouter = require("./auth/auth-router");
 const usersRouter = require("./users/users-router");
 
 const app = express();
 
-const morganOption = process.env.NODE_ENV === "production" ? "tiny" : "common";
+const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 
 app.use(morgan(morganOption));
 app.use(helmet());
