@@ -10,6 +10,55 @@ Start nodemon for the application `npm run dev`
 
 Run the tests `npm test`
 
-## Deploying
+## Installing
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Buvie requires Node.js v6.0+ to run.
+Install the dependencies and devDependencies and start the server.
+
+```
+npm install
+```
+
+## Running the tests
+
+To run back-end tests, run `npm test` in the terminal.
+
+## API Endpoint Overview
+
+### POST `/api/horses`
+
+```js
+// req.body
+{
+  id: Integer,
+  name: String,
+  age: Integer,
+  stall: Integer,
+  riderId: Integer
+}
+```
+
+### POST `/api/riders`
+
+```js
+// req.body
+{
+  id: Integer,
+  name: String,
+}
+
+
+```
+
+### PATCH `/api/horses`
+
+```js
+// req.body
+{
+  id: Integer,
+  name: String,
+  age: Integer,
+  stall: Integer,
+  riderId: Integer
+}
+```
