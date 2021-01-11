@@ -62,3 +62,21 @@ To run back-end tests, run `npm test` in the terminal.
   riderId: Integer
 }
 ```
+
+### GET `/api/horses/id`
+
+```js
+// req.body
+{
+  horseId: Integer,
+}
+```
+
+### GET `/api/riders/id`
+
+```js
+// req.body
+{
+  riderId: Integer,
+}
+```
